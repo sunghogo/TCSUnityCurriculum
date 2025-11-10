@@ -7,11 +7,26 @@ public class Flappy : MonoBehaviour
     public Animator animator;
     public AudioSource audioSource;
     public AudioClip flapSFX;
+    public AudioClip pointSFX;
 
-    void PlayFlap()
+    [Range(1f, 10f)] public float jumpingSpeed;
+    [Range(1f, 180f)] public float rotationSpeed;
+
+    void PlayFlapSound()
     {
-        audioSource.volume = 0.5f;
         audioSource.PlayOneShot(flapSFX);
+    }
+
+    void PlayPointSound()
+    {
+        audioSource.PlayOneShot(pointSFX);
+    }
+
+   void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Point"))
+        {
+            PlayPointSound();
+        }
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +34,9 @@ public class Flappy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        jumpingSpeed = 5f;
+        rotationSpeed = 30f;
+        audioSource.volume = 0.5f;
     }
 
     // Update is called once per frame
@@ -26,14 +44,14 @@ public class Flappy : MonoBehaviour
     {
         int z = (int)transform.eulerAngles.z; // convert from float to int for direct comparisons
         if ((330 <= z && z <= 360) || (0 <= z && z <= 30) ) {
-            transform.Rotate(0, 0, -30f * Time.deltaTime);
+            transform.Rotate(0, 0, -1f * Time.deltaTime * rotationSpeed);
         }
 
         if (Input.GetMouseButton(0))
         {
-            rb.linearVelocityY = 5f;
+            rb.linearVelocityY = jumpingSpeed;
             animator.SetTrigger("Flapping");
-            PlayFlap();
+            PlayFlapSound();
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 30f);
         }
     }

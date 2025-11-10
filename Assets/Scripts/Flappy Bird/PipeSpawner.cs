@@ -5,11 +5,14 @@ public class PipeSpawner : MonoBehaviour
     public GameObject pipesPrefab;
     public float spawnsPerSecond;
     float secondsPerSpawn;
-    public float spawnTimer;
+    float spawnTimer;
+    // public float pipeHeightRange;
+    // float spawnerHeight;
 
     [ContextMenu("Spawn Pipe")]
     public void SpawnPipes()
     {
+        // Instantiate(pipesPrefab, transform.position, Quaternion.identity);
         Instantiate(pipesPrefab, transform);
     }
 
@@ -18,6 +21,8 @@ public class PipeSpawner : MonoBehaviour
         spawnsPerSecond = 1f;
         secondsPerSpawn = 1 / spawnsPerSecond;
         spawnTimer = 0f;
+        // spawnerHeight = transform.position.y;
+        // pipeHeightRange = 0.5f;
     }
 
     void FixedUpdate()
@@ -25,6 +30,8 @@ public class PipeSpawner : MonoBehaviour
         spawnTimer += Time.fixedDeltaTime;
         if (spawnTimer >= secondsPerSpawn)
         {
+            // float offset = Random.Range(-pipeHeightRange, pipeHeightRange);
+            // transform.position = new Vector3(transform.position.x, offset + spawnerHeight, transform.position.z);
             SpawnPipes();
             spawnTimer = 0f;
         }
