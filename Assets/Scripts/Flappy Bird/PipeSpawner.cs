@@ -27,13 +27,16 @@ public class PipeSpawner : MonoBehaviour
 
     void FixedUpdate()
     {
-        spawnTimer += Time.fixedDeltaTime;
-        if (spawnTimer >= secondsPerSpawn)
+        if (GameManager.Instance.StartState)
         {
-            // float offset = Random.Range(-pipeHeightRange, pipeHeightRange);
-            // transform.position = new Vector3(transform.position.x, offset + spawnerHeight, transform.position.z);
-            SpawnPipes();
-            spawnTimer = 0f;
+            spawnTimer += Time.fixedDeltaTime;
+            if (spawnTimer >= secondsPerSpawn)
+            {
+                // float offset = Random.Range(-pipeHeightRange, pipeHeightRange);
+                // transform.position = new Vector3(transform.position.x, offset + spawnerHeight, transform.position.z);
+                SpawnPipes();
+                spawnTimer = 0f;
+            }
         }
     }
 }

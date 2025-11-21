@@ -13,12 +13,15 @@ public class Foreground : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = Vector3.left  * Time.fixedDeltaTime * speed;
-        transform.Translate(movement);
-        if (transform.position.x <= leftXBoundary)
+        if (GameManager.Instance.StartState)
         {
-            Vector3 newPosition = new Vector3(-leftXBoundary, transform.position.y, transform.position.z);
-            transform.position = newPosition;
+            Vector3 movement = Vector3.left  * Time.fixedDeltaTime * speed;
+            transform.Translate(movement);
+            if (transform.position.x <= leftXBoundary)
+            {
+                Vector3 newPosition = new Vector3(-leftXBoundary, transform.position.y, transform.position.z);
+                transform.position = newPosition;
+            }
         }
     }
 }

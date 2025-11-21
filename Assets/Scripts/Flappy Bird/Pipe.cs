@@ -17,11 +17,14 @@ public class Pipe : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = Vector3.left  * Time.fixedDeltaTime * speed;
-        transform.Translate(movement);
-        if (transform.position.x <= leftXBoundary)
+        if (GameManager.Instance.StartState)
         {
-            Destroy(gameObject);
+            Vector3 movement = Vector3.left  * Time.fixedDeltaTime * speed;
+            transform.Translate(movement);
+            if (transform.position.x <= leftXBoundary)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
