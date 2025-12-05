@@ -9,4 +9,9 @@ public class ScoreText : MonoBehaviour
     {
         tmp.SetText($"{score}");
     }
+
+    public void HideText()
+    {
+        tmp.enabled = false;
+    }
 }

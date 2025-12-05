@@ -185,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6339c7747d984b6ebdf0b1950a2a26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pipe
+  topPipeSr: {fileID: 5949800066541353072}
+  bottomPipeSr: {fileID: 3219420814916782876}
+  fadeDuration: 0
   speed: 1
   leftXBoundary: 0
   pipesHeightOffsetRange: 0

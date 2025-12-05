@@ -13,7 +13,7 @@ public class Foreground : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.StartState)
+        if (GameManager.Instance.State == GameState.Running)
         {
             Vector3 movement = Vector3.left  * Time.fixedDeltaTime * speed;
             transform.Translate(movement);

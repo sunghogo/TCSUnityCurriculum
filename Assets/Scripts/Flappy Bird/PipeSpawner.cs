@@ -27,7 +27,7 @@ public class PipeSpawner : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.StartState)
+        if (GameManager.Instance.State == GameState.Running)
         {
             spawnTimer += Time.fixedDeltaTime;
             if (spawnTimer >= secondsPerSpawn)
