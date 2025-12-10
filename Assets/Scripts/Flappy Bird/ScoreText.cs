@@ -5,13 +5,18 @@ public class ScoreText : MonoBehaviour
 {
     public TextMeshProUGUI tmp;
     
-    public void UpdateScoreText(int score)
+    public void UpdateScore(int score)
     {
         tmp.SetText($"{score}");
     }
 
-    public void HideText()
+    public void Hide()
     {
         tmp.enabled = false;
+    }
+
+    public void Show()
+    {
+        tmp.enabled = true;
     }
 }

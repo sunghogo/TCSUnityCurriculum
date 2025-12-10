@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputExample : MonoBehaviour
 {
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rb;
     public InputAction jumpAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,7 +13,7 @@ public class InputExample : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        rigidbody.linearVelocityY = 5f;
+        rb.linearVelocityY = 5f;
     }
 
 
@@ -22,11 +22,11 @@ public class InputExample : MonoBehaviour
     {
         // if (Input.GetMouseButton(0))
         // {
-        //     rigidbody.linearVelocityY = 5f;
+        //     rb.linearVelocityY = 5f;
         // }
         // if (jumpAction.IsPressed())
         // {
-        //     rigidbody.linearVelocityY = 5f;
+        //     rb.linearVelocityY = 5f;
         // }
 
     }

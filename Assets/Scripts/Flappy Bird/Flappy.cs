@@ -14,6 +14,8 @@ public class Flappy : MonoBehaviour
     public float fadeDuration;
     [Range(1f, 10f)] public float jumpingSpeed;
     [Range(1f, 180f)] public float rotationSpeed;
+    public Vector3 originalPosition;
+    public bool isFading;
 
     void PlayFlapSound()
     {
@@ -38,6 +40,7 @@ public class Flappy : MonoBehaviour
 
     IEnumerator FadeOutCoroutine(SpriteRenderer sr, float duration)
     {
+        isFading = true;
         float localFadeTimer = 0f;
         float alpha = sr.color.a;
         while (localFadeTimer < duration)
@@ -48,6 +51,14 @@ public class Flappy : MonoBehaviour
             sr.color = new Color(c.r, c.g, c.b, Mathf.Lerp(alpha, 0f, k));
             yield return null;
         }
+        isFading = false;
+    }
+
+    public void Reset()
+    {
+        Color c = sr.color; 
+        sr.color = new Color(c.r, c.g, c.b, 1.0f);
+        transform.position = originalPosition;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -76,7 +87,9 @@ public class Flappy : MonoBehaviour
         rotationSpeed = 30f;
         audioSource.volume = 0.5f;
         fadeTimer = 0f;
-        fadeDuration = 1f;
+        fadeDuration = 0.5f;
+        originalPosition = transform.position;
+        isFading = false;
     }
 
     // Update is called once per frame
@@ -96,7 +109,7 @@ public class Flappy : MonoBehaviour
                 PlayFlapSound();
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 30f);
             }
-        } else
+        } else if (GameManager.Instance.State == GameState.End && !isFading)
         {
             // sr.enabled = false;
             StartCoroutine(FadeOutCoroutine(sr, fadeDuration));

@@ -28,21 +28,32 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         State = GameState.End;
-        scoreText.HideText();
+        scoreText.Hide();
         gameOverText.ShowText();
         StartCoroutine(StartGameCoroutine(transitionDelay));
     }
 
     public void StartGame()
     {
+        State = GameState.Start;
         gameOverText.HideText();
-        startText.ShowText();
+        startText.Show();
+        score = 0;
+        scoreText.UpdateScore(score);
+    }
+
+    public void RunGame()
+    {
+        State = GameState.Running;
+        startText.Hide();
+        flappy.Reset();
+        scoreText.Show();
     }
 
     public void IncrementScore()
     {
         ++score;
-        scoreText.UpdateScoreText(score);
+        scoreText.UpdateScore(score);
     }
 
     void InitializeInstance()

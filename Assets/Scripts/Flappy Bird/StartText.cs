@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class StartText : MonoBehaviour
+public class StartText : MonoBehaviour, IPointerClickHandler
 {
     public SpriteRenderer sr;
     public float fadeDuration;
@@ -19,18 +20,27 @@ public class StartText : MonoBehaviour
         }
     }
 
+    // Requires Main Camera object to have a Physics 2D Raycaster component
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        if (GameManager.Instance.State == GameState.Start && pointerEventData.button == PointerEventData.InputButton.Left)
+        {
+            GameManager.Instance.RunGame();
+        }
+    }
+
     void Start()
     {
-        HideText();
+        Hide();
         fadeDuration = 1f;
     }
 
-    public void HideText()
+    public void Hide()
     {
         sr.enabled = false;
     }
 
-    public void ShowText()
+    public void Show()
     {
         sr.enabled = true;
         Color c = sr.color;
