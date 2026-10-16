@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public float speed = 5f;
-    public Vector3 direction = Vector3.zero;
+    public float speed = 10f;
+    public Vector2 direction = Vector2.up;
+    public Vector2 startingPosition;
 
     void Move()
     {
-        transform.Translate(direction * speed * Time.fixedDeltaTime);
+        transform.Translate(speed * direction * Time.deltaTime);
     }
 
     void SetRandomDirection()
     {
-        float randomX = Mathf.Cos(Random.Range(30f * Mathf.Deg2Rad, 120f * Mathf.Deg2Rad));
+        float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(0.5f, 1f);
         direction = new Vector2(randomX, randomY).normalized;
     }
@@ -24,19 +25,37 @@ public class Ball : MonoBehaviour
         return reflection;
     }
 
+    void Reset()
+    {
+        transform.position = startingPosition;
+        SetRandomDirection();
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 normal = collision.GetContact(0).normal;
         direction = Reflect(direction, normal);
+        // if (collision.gameObject.CompareTag("Paddle"))
+        // {
+        //     float yOffset = Random.Range(-0.2f, 0.2f);
+        //     direction =  new Vector2(direction.x, Mathf.Clamp(direction.y + yOffset, 0.2f, 0.8f)).normalized;
+        // }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Reset();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        startingPosition = transform.position;
         SetRandomDirection();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Move();
     }

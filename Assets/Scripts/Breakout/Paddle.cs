@@ -2,36 +2,24 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public float speed = 10f;
-    public Vector3 direction = Vector3.zero;
-    
-    void ProcessInput()
+    public float speed = 5f;
+    void HandleInput()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        Vector2 direction = Vector2.zero;
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-                direction = Vector3.left;
-                Move();
+            direction = Vector2.left;
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
-                direction = Vector3.right;
-                Move();
+            direction = Vector2.right;
         }
-    }
-
-    void Move()
-    {
-        transform.Translate(direction * speed * Time.fixedDeltaTime);
-    }
-
-    void Start()
-    {
-        
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        ProcessInput();
+        HandleInput();
     }
 }
