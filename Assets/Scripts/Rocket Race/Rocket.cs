@@ -6,8 +6,10 @@ public class Rocket : MonoBehaviour
     public float movementSpeed = 29f;
     public Rigidbody2D rigidbody;
 
-    private float maxX = 13.333f;
-    private float minX = -13.333f;
+    float maxX = 13.333f;
+    float minX = -13.333f;
+    float maxY = 10.0f;
+    float minY = -10.0F;
 
     void Move()
     {
@@ -25,7 +27,7 @@ public class Rocket : MonoBehaviour
         {
             rotationVector = Vector3.back;
         }
-        transform.Rotate(rotationVector * rotationSpeed * Time.deltaTime);
+        transform.Rotate(rotationVector * rotationSpeed * Time.fixedDeltaTime);
 
 
         if (Input.GetKey(KeyCode.Space))
@@ -40,18 +42,15 @@ public class Rocket : MonoBehaviour
         {
             transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
         }
+        if (transform.position.y >= maxY || transform.position.y <= minY)
+        {
+            transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
+        }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        Destroy(collision.gameObject);
     }
 
     void FixedUpdate()
