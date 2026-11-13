@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
+    public RR_Score scoreReference; 
+    public RR_GameOver gameOverReference;
+    public RR_Restart restartButtonReference;
+
     public float rotationSpeed = 100f;
-    public float movementSpeed = 29f;
+    public float movementSpeed = 50f;
     public Rigidbody2D rigidbody;
 
     float maxX = 13.333f;
@@ -48,9 +52,22 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        gameOverReference.Show();
+        restartButtonReference.Show();
+        Time.timeScale = 0f;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
+        scoreReference.IncrementScore();
         Destroy(collision.gameObject);
+    }
+
+    void Start()
+    {
+        Time.timeScale = 1f;
     }
 
     void FixedUpdate()
