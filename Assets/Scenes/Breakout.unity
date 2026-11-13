@@ -188,8 +188,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 10
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -201,7 +201,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!212 &23192896
 SpriteRenderer:
   serializedVersion: 3
@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 23192893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: -3, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsBall
   rigidbody: {fileID: 23192895}
-  movementSpeed: 50
+  movementSpeed: 200
 --- !u!1 &555727763
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Paddle
   speed: 20
+  rigidbody: {fileID: 555727768}
 --- !u!61 &555727767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -639,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 714806499}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: -3, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -753,8 +754,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrickSpawner
   brickPrefab: {fileID: 7083281229631829149, guid: b630da8dc45b7420fbfd7b49dc3e6bba, type: 3}
-  gridHalfWidth: 10
-  gridHalfHeight: 10
+  rows: 3
+  halfColumns: 3
+  brickXOffset: 1
+  brickYOffset: 1
+  brickWidth: 0
+  brickHeight: 0
 --- !u!4 &1544026080
 Transform:
   m_ObjectHideFlags: 0

@@ -20,31 +20,30 @@ public class Ball : MonoBehaviour
 
     Vector2 Reflect(Vector2 v, Vector2 n)
     {
-        Vector2 reflection = v - 2f * Vector2.Dot(v, n) * n;
+        // Old method of manually doing reflection calculation
+        // Vector2 reflection = v - 2f * Vector2.Dot(v, n) * n;
+
+        // New method of using Unity's Reflect method
+        Vector2 reflection = Vector2.Reflect(v, n);
         reflection.Normalize();
         return reflection;
     }
 
-    void Reset()
+    void ResetPosition()
     {
         transform.position = startingPosition;
-        SetRandomDirection();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 normal = collision.GetContact(0).normal;
         direction = Reflect(direction, normal);
-        // if (collision.gameObject.CompareTag("Paddle"))
-        // {
-        //     float yOffset = Random.Range(-0.2f, 0.2f);
-        //     direction =  new Vector2(direction.x, Mathf.Clamp(direction.y + yOffset, 0.2f, 0.8f)).normalized;
-        // }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Reset();
+        ResetPosition();
+        SetRandomDirection();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
